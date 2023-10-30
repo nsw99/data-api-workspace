@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+</head>
+<body>
+	<h1>로그인</h1>
+	<p>아이디 : <input type="text" id="email"></p>
+	<span id="result"></span>	
+	<button>아이디체크</button>
+
+	<script>
+	
+		$("email").on("click", function() {
+			const email = $("#email").val();
+			const regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+			// 정규표현식! <- 제공됨	!
+			if(regex.exec(email)==null){
+				$("#result").html("이메일 형식에 맞지 않습니다.")
+				return;
+			}
+
+			$.ajax({
+				url: "Login",
+				data: {email:$("#email").val()},
+				success: function(resp) {
+					$("#result").html(resp);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
